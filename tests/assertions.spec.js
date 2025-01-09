@@ -1,7 +1,19 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
+const { default: newLoginAction } = require('../tests/actions/newLoginAction')
 
-test('assertion dan locator', async ({ page }) => {
+test('pom assertion', async({ page }) => {
+    const loginObj = new newLoginAction(page)
+    await loginObj.goToWeb();
+    await loginObj.goLogin();
+    await loginObj.pilihBarang();
+    await loginObj.cekKeranjang();
+    await loginObj.checkout();
+    await loginObj.fillData();
+    await loginObj.finish();
+})
+
+test('assertion dan locator cara traditional', async ({ page }) => {
     await page.goto('https://www.saucedemo.com/');
   
     const inputUsername = page.locator('#user-name')
